@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% block content %}
+<form align="center" method="POST" action="/reg_run">
+  <input name="name" style="border: none; outline: none;" size="35px" placeholder="Name"><hr width="300px"><br>
+  <input name="surname" style="border: none; outline: none;" size="35px" placeholder="Surname"><hr width="300px"><br>
+  <input name="e-mail" style="border: none; outline: none;" size="35px" placeholder="E-mail"><hr width="300px"><br>
+  <input name="password" style="border: none; outline: none;" size="35px" placeholder="Password"><hr width="300px"><br>
+  <input type="submit" value="Зарегистрироваться"/>
+</form>
+{% endblock %}
