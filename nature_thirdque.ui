@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
-    <height>509</height>
+    <width>683</width>
+    <height>571</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,43 +17,48 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>30</y>
-     <width>321</width>
-     <height>91</height>
+     <y>70</y>
+     <width>451</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>24</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Как называется страна, которая являлась
-ведущей в торговли в 17 веке</string>
+    <string>Как называется дикая
+лошадь:</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>130</y>
-     <width>291</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>340</y>
-     <width>141</width>
-     <height>51</height>
+     <y>220</y>
+     <width>231</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <pointsize>16</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>390</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="text">
@@ -63,30 +68,20 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>180</y>
-     <width>241</width>
-     <height>71</height>
+     <x>40</x>
+     <y>280</y>
+     <width>381</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Кто являлся её правителем
-в это время</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>260</y>
-     <width>291</width>
-     <height>20</height>
-    </rect>
+    <string>Ответ писать в именительном
+падеже с большой буквы</string>
    </property>
   </widget>
  </widget>
