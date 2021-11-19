@@ -19,5 +19,14 @@ class DataBase:
         self.con.commit()
         return res.fetchmany()
 
+    def select_all(self, name_test):
+        res = self.cur.execute("SElECT RESULTS FROM results WHERE TEST = '{}';".format(name_test))
+        self.con.commit()
+        return res.fetchall()
+
+    def update(self, id_, results1):
+        self.cur.execute("UPDATE results RESULTS = '{}' WHERE ID = '{}'".format(results1, id_))
+        self.con.commit()
+
     def close(self):
         self.con.close()

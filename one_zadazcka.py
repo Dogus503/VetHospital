@@ -1,22 +1,37 @@
-from menu import Menu
-from results import Resuslt
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWidgets import QWidget, QLabel
-from PyQt5.QtGui import QPixmap
-from tests import Tests
-from history_test import FirstQuest, SecondQuest, ThirdQuest
-from nature_test import FirstQuestNature, SecondQuestNature, ThirdQuestNature
-from geography_test import FirstQuestGeography, SecondQuestGeography, ThirdQuestGeography
-from results_test import GeographyResults, HistoryResults, NatureResults
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+
 from DataBaze import DataBase
+from geography_test import FirstQuestGeography, SecondQuestGeography, ThirdQuestGeography
+from history_test import FirstQuest, SecondQuest, ThirdQuest
+from menu import Menu
+from nature_test import FirstQuestNature, SecondQuestNature, ThirdQuestNature
+from results_newversion import Results
+from results_test import GeographyResults, HistoryResults, NatureResults
+from tests import Tests
 
 cnt = 0
 db = DataBase()
 
 
-class GeographyEnd(QMainWindow, GeographyResults):
+class Dialog:
+    def closeEvent(self, event):
+        reply = QMessageBox.question(
+            self,
+            "Выйти",
+            "Вы уверены что хотите выйти?",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
+
+class GeographyEnd(QMainWindow, GeographyResults, Dialog):
     def __init__(self, parent=None):
         global cnt
         super().__init__(parent)
@@ -45,7 +60,7 @@ class GeographyEnd(QMainWindow, GeographyResults):
         self.hide()
 
 
-class HistoryEnd(QMainWindow, HistoryResults):
+class HistoryEnd(QMainWindow, HistoryResults, Dialog):
     def __init__(self, parent=None):
         global cnt
         super().__init__(parent)
@@ -74,7 +89,7 @@ class HistoryEnd(QMainWindow, HistoryResults):
         self.hide()
 
 
-class NatureEnd(QMainWindow, NatureResults):
+class NatureEnd(QMainWindow, NatureResults, Dialog):
     def __init__(self, parent=None):
         global cnt
         super().__init__(parent)
@@ -121,7 +136,7 @@ class GeographyThird(QMainWindow, ThirdQuestGeography):
         self.hide()
 
 
-class GeographySecond(QMainWindow, SecondQuestGeography):
+class GeographySecond(QMainWindow, SecondQuestGeography, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -137,7 +152,7 @@ class GeographySecond(QMainWindow, SecondQuestGeography):
         self.hide()
 
 
-class GeographyFirst(QMainWindow, FirstQuestGeography):
+class GeographyFirst(QMainWindow, FirstQuestGeography, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -153,7 +168,7 @@ class GeographyFirst(QMainWindow, FirstQuestGeography):
         self.hide()
 
 
-class NatureThird(QMainWindow, ThirdQuestNature):
+class NatureThird(QMainWindow, ThirdQuestNature, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -169,7 +184,7 @@ class NatureThird(QMainWindow, ThirdQuestNature):
         self.hide()
 
 
-class NatureSecond(QMainWindow, SecondQuestNature):
+class NatureSecond(QMainWindow, SecondQuestNature, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -187,7 +202,7 @@ class NatureSecond(QMainWindow, SecondQuestNature):
         self.hide()
 
 
-class NatureFirst(QMainWindow, FirstQuestNature):
+class NatureFirst(QMainWindow, FirstQuestNature, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -203,7 +218,7 @@ class NatureFirst(QMainWindow, FirstQuestNature):
         self.hide()
 
 
-class SixWindow(QMainWindow, ThirdQuest):
+class SixWindow(QMainWindow, ThirdQuest, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -219,7 +234,7 @@ class SixWindow(QMainWindow, ThirdQuest):
         self.hide()
 
 
-class FiveWindow(QMainWindow, SecondQuest):
+class FiveWindow(QMainWindow, SecondQuest, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -237,7 +252,7 @@ class FiveWindow(QMainWindow, SecondQuest):
         self.hide()
 
 
-class ThirdWindow(QMainWindow, Tests):
+class ThirdWindow(QMainWindow, Tests, Dialog):
     def __init__(self, parent=None):
         super(ThirdWindow, self).__init__(parent)
 
@@ -269,7 +284,7 @@ class ThirdWindow(QMainWindow, Tests):
         self.hide()
 
 
-class FourthWindow(QMainWindow, FirstQuest):
+class FourthWindow(QMainWindow, FirstQuest, Dialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -285,15 +300,33 @@ class FourthWindow(QMainWindow, FirstQuest):
         self.hide()
 
 
-class SecondWindow(QMainWindow, Resuslt):
+class SecondWindow(QMainWindow, Results, Dialog):
     def __init__(self, parent=None):
         super(SecondWindow, self).__init__(parent)
 
         self.setupUi(self)
         self.setWindowTitle("Results")
+        self.pushButton.clicked.connect(self.show_menu)
+        self.comboBox.currentTextChanged.connect(self.change_list)
+
+    def show_menu(self):
+        self.w = MyWidget()
+        self.w.show()
+        self.hide()
+
+    def change_list(self):
+        self.listWidget.clear()
+        res = db.select_all(self.comboBox.currentText())
+        for i in range(len(res)):
+            res[i] = str(res[i])
+            res[i] = res[i].replace(")", "")
+            res[i] = res[i].replace("(", "")
+            res[i] = res[i].replace(",", "")
+        res.reverse()
+        self.listWidget.addItems(res)
 
 
-class MyWidget(QMainWindow, Menu):
+class MyWidget(QMainWindow, Menu, Dialog):
     def __init__(self):
         self.w3 = ThirdWindow()
         super(MyWidget, self).__init__()
